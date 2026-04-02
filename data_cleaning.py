@@ -21,6 +21,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import os
+from sklearn.model_selection import train_test_split
+
 
 # ── Configuration ────────────────────────────────────────────────────────────
 
@@ -242,12 +244,18 @@ print("\nSplitting into train / val / test …")
 
 dataset = dataset.sort_values("valid_time").reset_index(drop=True)
 
-val_start  = pd.Timestamp(VAL_START,  tz="UTC")
-test_start = pd.Timestamp(TEST_START, tz="UTC")
+# val_start  = pd.Timestamp(VAL_START,  tz="UTC")
+# test_start = pd.Timestamp(TEST_START, tz="UTC")
 
-train = dataset[dataset["valid_time"] <  val_start]
-val   = dataset[(dataset["valid_time"] >= val_start) & (dataset["valid_time"] < test_start)]
-test  = dataset[dataset["valid_time"] >= test_start]
+# train = dataset[dataset["valid_time"] <  val_start]
+# val   = dataset[(dataset["valid_time"] >= val_start) & (dataset["valid_time"] < test_start)]
+# test  = dataset[dataset["valid_time"] >= test_start]
+
+# Step 1: carve out the test set (last 20%)
+train_val, test = train_test_split(dataset, test_size=0.20, shuffle=False)
+
+# Step 2: split the remainder into train and val (val = 20% of total = 25% of train_val)
+train, val = train_test_split(train_val, test_size=0.25, shuffle=False)
 
 print(f"  Train : {len(train):,} rows  ({train['valid_time'].min().date()} → "
       f"{train['valid_time'].max().date()})")
