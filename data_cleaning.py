@@ -1,21 +1,3 @@
-"""
-TAI Project — Data Cleaning & Preprocessing
-============================================
-Cleans and merges the Vlinder observation data and NWP ensemble forecast data
-into a single dataset ready for ML model training.
-
-Steps:
-  1. Load & parse Vlinder observations
-  2. Detect and remove flatline periods (station downtime)
-  3. Resample Vlinder to 6-hourly, matching NWP valid_times
-  4. Convert Vlinder temperature °C → K
-  5. Load NWP forecast data
-  6. Aggregate 50 ensemble members per (valid_time, leadtime) into summary statistics
-  7. Engineer additional features (leadtime, hour-of-day, day-of-year)
-  8. Merge on valid_time, dropping rows that coincide with Vlinder downtime
-  9. Chronological train / val / test split (no data leakage)
-"""
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

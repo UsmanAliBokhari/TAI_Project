@@ -1,0 +1,35 @@
+data_exploration:
+"""
+TAI Project — Data Exploration & Quality Checks
+================================================
+Run this AFTER data_cleaning.py has produced processed_data/
+
+Checks:
+  1. Basic shape and dtypes of the final dataset
+  2. Missing value audit
+  3. Target variable (obs_temp_K) distribution and time coverage
+  4. Flatline periods visualised on the raw Vlinder data
+  5. NWP vs Vlinder temperature comparison (model bias)
+  6. Feature correlation with the target
+  7. Train / val / test split sanity check (no overlap, correct sizes)
+  8. Outlier detection on the target
+"""
+
+data_cleaning:
+"""
+TAI Project — Data Cleaning & Preprocessing
+============================================
+Cleans and merges the Vlinder observation data and NWP ensemble forecast data
+into a single dataset ready for ML model training.
+
+Steps:
+  1. Load & parse Vlinder observations
+  2. Detect and remove flatline periods (station downtime)
+  3. Resample Vlinder to 6-hourly, matching NWP valid_times
+  4. Convert Vlinder temperature °C → K
+  5. Load NWP forecast data
+  6. Aggregate 50 ensemble members per (valid_time, leadtime) into summary statistics
+  7. Engineer additional features (leadtime, hour-of-day, day-of-year)
+  8. Merge on valid_time, dropping rows that coincide with Vlinder downtime
+  9. Chronological train / val / test split (no data leakage)
+"""

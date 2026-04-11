@@ -1,19 +1,3 @@
-"""
-TAI Project — Data Exploration & Quality Checks
-================================================
-Run this AFTER data_cleaning.py has produced processed_data/
-
-Checks:
-  1. Basic shape and dtypes of the final dataset
-  2. Missing value audit
-  3. Target variable (obs_temp_K) distribution and time coverage
-  4. Flatline periods visualised on the raw Vlinder data
-  5. NWP vs Vlinder temperature comparison (model bias)
-  6. Feature correlation with the target
-  7. Train / val / test split sanity check (no overlap, correct sizes)
-  8. Outlier detection on the target
-"""
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
